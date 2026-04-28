@@ -1,0 +1,10 @@
+{
+	"imports": {
+		"@hono/hono": "jsr:@hono/hono@^4.12.15",
+		"@repo/types": "../packages/types/src/index.ts",
+		"hash-wasm": "npm:hash-wasm@^4.12.0"
+	},
+	"tasks": {
+		"dev": "deno run --allow-net --allow-read --allow-write --allow-env --env-file=../.env main.ts"
+	}
+}
