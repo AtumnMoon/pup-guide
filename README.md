@@ -1,4 +1,4 @@
-# pup-guide
+# GUIDE
 
 Techstack used for this project is as follows.
 
@@ -33,7 +33,6 @@ Then fill in `server/.env`:
 HOST=0.0.0.0
 PORT=8000
 APP_PEPPER=your-secret-pepper-here
-CLIENT_ORIGIN=http://localhost:4321
 ```
 
 **3. Run migrations, sync content, and start the server:**
