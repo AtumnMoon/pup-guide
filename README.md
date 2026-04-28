@@ -1,14 +1,62 @@
-# Guide
+# pup-guide
 
 Techstack used for this project is as follows.
 
 - Client
-  - ??? - currently undecided
-  
+  - Astro - static site generator
+
 - Server
-  - Hono - for API and Router
-  - Argon2id - for hashing password with a custom 'Salt' for complexity
-  - SQLite - for lightweight database
+  - Hono - API framework
+  - hash-wasm - Argon2id password hashing with pepper
+  - SQLite (WASM) - lightweight database
+
+## Running the Server
+
+### Prerequisites
+- [Deno](https://deno.land) v2.0+
+
+### Setup
+
+**1. Clone the repo and enter the project root:**
+```sh
+git clone <repo-url>
+cd pup-guide
+```
+
+**2. Create the server environment file:**
+```sh
+cp server/.env.sample server/.env
+```
+
+Then fill in `server/.env`:
+```sh
+HOST=0.0.0.0
+PORT=8000
+APP_PEPPER=your-secret-pepper-here
+CLIENT_ORIGIN=http://localhost:4321
+```
+
+**3. Run migrations, sync content, and start the server:**
+```sh
+deno task dev
+```
+
+This runs three steps in order:
+- `deno task migrate` — creates the database and applies all migrations
+- `deno task sync` — exports published articles to the Astro content folder
+- `deno task --cwd server dev` — starts the Hono server
+
+The API will be available at `http://localhost:8000/api`.
+
+### Individual Tasks
+
+| Task | Command | Description |
+|------|---------|-------------|
+| Start server only | `deno task --cwd server dev` | Skips migrate and sync |
+| Run migrations only | `deno task migrate` | Applies any pending `.sql` migrations |
+| Sync content only | `deno task sync` | Writes published articles as `.md` files |
+
+---
 
 ## API Endpoints
 
