@@ -2,39 +2,25 @@
 .DS_Store
 Thumbs.db
 
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Fresh build directory
+_fresh/
+
+# npm + other dependencies
+node_modules/
+vendor/
+
 # Editor
 .vscode/
 .helix/
+.zed/
 *.swp
 
-# Dependencies
-client/node_modules/
-
-# Astro build output
-client/dist/
-client/.astro/
-
-# Environment variables
-client/.env
-client/.env.development
-client/.env.production
-
-# Generated files (your wiki markdown exports from SQLite)
-client/src/content/wiki/*.md
-
-# Deno cache
-server/.deno/
-
-# Environment variables
-.env
-client/.env
-server/.env
-
-# SQLite database files (don't commit your DB)
-server/data/
-server/*.db
-server/*.sqlite
-server/*.sqlite3
-
-# Logs
-server/*.log
+# Database files
+data
