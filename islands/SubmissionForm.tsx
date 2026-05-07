@@ -1,7 +1,21 @@
 import { useState } from "preact/hooks";
 
+type SubmissionType = "problem" | "request" | "question";
+
+const TYPE_LABELS: Record<SubmissionType, string> = {
+  problem: "Problem",
+  request: "Request",
+  question: "Question",
+};
+
+const TYPE_PLACEHOLDERS: Record<SubmissionType, string> = {
+  problem: "Describe the problem you're experiencing...",
+  request: "Describe what you'd like us to add or change...",
+  question: "What would you like to know?",
+};
+
 export default function SubmissionForm() {
-  const [type, setType] = useState<"article" | "faq">("article");
+  const [type, setType] = useState<SubmissionType>("problem");
   const [body, setBody] = useState("");
   const [anonymous, setAnonymous] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -42,11 +56,9 @@ export default function SubmissionForm() {
     return (
       <div class="text-center py-10 space-y-3">
         <div class="text-4xl">✅</div>
-        <h3 class="font-['DM_Serif_Display'] text-xl text-primary">
-          Submitted!
-        </h3>
+        <h3 class="text-xl text-primary">Submitted!</h3>
         <p class="text-base-content/60 text-sm">
-          Your request has been sent to the team.
+          Your submission has been sent to the team.
         </p>
         <button class="btn btn-ghost btn-sm" onClick={() => setSuccess(false)}>
           Submit another
@@ -67,7 +79,7 @@ export default function SubmissionForm() {
           <span class="label-text font-medium text-sm">Type</span>
         </label>
         <div class="flex gap-4">
-          {(["article", "faq"] as const).map((t) => (
+          {(["problem", "request", "question"] as const).map((t) => (
             <label key={t} class="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
@@ -77,9 +89,7 @@ export default function SubmissionForm() {
                 onChange={() =>
                   setType(t)}
               />
-              <span class="text-sm">
-                {t === "faq" ? "FAQ Suggestion" : "Article Idea"}
-              </span>
+              <span class="text-sm">{TYPE_LABELS[t]}</span>
             </label>
           ))}
         </div>
@@ -91,9 +101,7 @@ export default function SubmissionForm() {
         <textarea
           class="textarea textarea-bordered w-full resize-none focus:textarea-primary"
           rows={5}
-          placeholder={type === "article"
-            ? "Describe the article you'd like to see..."
-            : "What question should we add to the FAQ?"}
+          placeholder={TYPE_PLACEHOLDERS[type]}
           value={body}
           onInput={(e) => setBody((e.target as HTMLTextAreaElement).value)}
           required
