@@ -31,7 +31,7 @@ export const ArticleCommentSchema = z.object({
 export const SubmissionSchema = z.object({
   id: z.number(),
   body: z.string(),
-  type: z.enum(["article", "faq"]),
+  type: z.enum(["problem", "request", "question"]),
   status: z.enum(["pending", "approved", "rejected"]),
   user_id: z.number().nullable(),
   username: z.string().nullable(),
