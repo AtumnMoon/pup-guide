@@ -1,6 +1,6 @@
 # Project Goals
 
-Guide web app built as a school project
+Guide web app built as a school project with a highly readable and accessible user interface that supports both mobile, tablets, desktops, and tv screen sizes.
 
 ---
 

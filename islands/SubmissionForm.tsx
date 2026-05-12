@@ -55,7 +55,7 @@ export default function SubmissionForm() {
   if (success) {
     return (
       <div class="text-center py-10 space-y-3">
-        <div class="text-4xl">✅</div>
+        <div class="text-4xl" aria-hidden="true">✅</div>
         <h3 class="text-xl text-primary">Submitted!</h3>
         <p class="text-base-content/60 text-sm">
           Your submission has been sent to the team.
@@ -69,15 +69,18 @@ export default function SubmissionForm() {
 
   return (
     <form onSubmit={handleSubmit} class="space-y-5">
-      {error && (
-        <div class="alert alert-error py-3 text-sm">
-          <span>{error}</span>
-        </div>
-      )}
-      <div class="form-control gap-2">
-        <label class="label py-0">
+      <div role="alert" aria-live="polite" aria-atomic="true">
+        {error && (
+          <div class="alert alert-error py-3 text-sm">
+            <span>{error}</span>
+          </div>
+        )}
+      </div>
+
+      <fieldset class="form-control gap-2">
+        <legend class="label py-0">
           <span class="label-text font-medium text-sm">Type</span>
-        </label>
+        </legend>
         <div class="flex gap-4">
           {(["problem", "request", "question"] as const).map((t) => (
             <label key={t} class="flex items-center gap-2 cursor-pointer">
@@ -93,12 +96,14 @@ export default function SubmissionForm() {
             </label>
           ))}
         </div>
-      </div>
+      </fieldset>
+
       <div class="form-control gap-1">
-        <label class="label py-0">
+        <label for="submission-body" class="label py-0">
           <span class="label-text font-medium text-sm">Message</span>
         </label>
         <textarea
+          id="submission-body"
           class="textarea textarea-bordered w-full resize-none focus:textarea-primary"
           rows={5}
           placeholder={TYPE_PLACEHOLDERS[type]}
@@ -107,6 +112,7 @@ export default function SubmissionForm() {
           required
         />
       </div>
+
       <div class="flex items-center justify-between">
         <label class="flex items-center gap-2 cursor-pointer">
           <input
@@ -122,9 +128,15 @@ export default function SubmissionForm() {
           type="submit"
           class="btn btn-primary"
           disabled={loading || !body.trim()}
+          aria-busy={loading}
         >
           {loading
-            ? <span class="loading loading-spinner loading-sm" />
+            ? (
+              <span
+                class="loading loading-spinner loading-sm"
+                aria-hidden="true"
+              />
+            )
             : "Submit"}
         </button>
       </div>
